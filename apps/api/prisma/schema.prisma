@@ -15,3 +15,125 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Competition {
+  id          String   @id
+  name        String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  type        Int      @default(0)
+  status      Int      @default(0)
+  nbpl        Boolean  @default(false)
+  stages      Stage[]
+  teams       Team[]
+  players     Player[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("competitions")
+}
+
+model Stage {
+  id             String      @id
+  name           String
+  type           Int         @default(1)
+  rankType       Int         @default(0)
+  startDate      DateTime
+  endDate        DateTime
+  competition    Competition @relation(fields: [competitionId], references: [id])
+  competitionId  String
+  scores         Score[]
+  heroStats      HeroStat[]
+  weaponStats    WeaponStat[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@map("stages")
+}
+
+model Team {
+  id            String      @id
+  name          String
+  logo          String?
+  points        Int         @default(0)
+  rank          Int?
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  competitionId String
+  players       Player[]
+  scores        Score[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("teams")
+}
+
+model Player {
+  id            String      @id
+  name          String
+  avatar        String?
+  team          Team        @relation(fields: [teamId], references: [id])
+  teamId        String
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  competitionId String
+  scores        Score[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("players")
+}
+
+model Score {
+  id          String   @id
+  points      Float
+  kills       Int
+  deaths      Int
+  assists     Int
+  matchScores String?  @db.Text
+  stage       Stage    @relation(fields: [stageId], references: [id])
+  stageId     String
+  team        Team     @relation(fields: [teamId], references: [id])
+  teamId      String
+  player      Player   @relation(fields: [playerId], references: [id])
+  playerId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("scores")
+}
+
+model HeroStat {
+  id                    String   @id
+  heroName             String
+  heroImage            String?
+  battleAmount         Int      @default(0)
+  killTimesAvg         Float    @default(0)
+  assistAvg            Float    @default(0)
+  cureAvg              Float    @default(0)
+  damageAvg            Float    @default(0)
+  deathAvg             Float    @default(0)
+  totalLiveTimeAvg     Float    @default(0)
+  scoreTop1BattleAmount Int      @default(0)
+  rescueTimesAvg       Float    @default(0)
+  scoreTop1Rate        Float    @default(0)
+  rank                 Int      @default(0)
+  stage                Stage    @relation(fields: [stageId], references: [id])
+  stageId              String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("hero_stats")
+}
+
+model WeaponStat {
+  id         String   @id
+  weaponName String
+  pickRate   Float    @default(0)
+  killRate   Float    @default(0)
+  stage      Stage    @relation(fields: [stageId], references: [id])
+  stageId    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("weapon_stats")
+}

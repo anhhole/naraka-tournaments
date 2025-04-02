@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+using power shell command
+make sure you close previous terminal have run after you done
+always using nps in readme file to run or build project
+using nps dev to run both fe and be

@@ -12,11 +12,13 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
+    "@reduxjs/toolkit": "2.6.1",
+    "antd": "^5.24.6",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "^8.1.2",
+    "react-redux": "9.2.0",
+    "react-router-dom": "^7.4.1",
     "ui": "*"
   },
   "devDependencies": {

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Competition" ADD COLUMN     "nbpl" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "status" INTEGER NOT NULL DEFAULT 0;

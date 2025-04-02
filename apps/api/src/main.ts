@@ -8,9 +8,12 @@ async function bootstrap() {
   const logger = new Logger('EntryPoint');
   const app = await NestFactory.create(AppModule);
 
+  // Set global prefix for all routes
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
-    .setTitle('Leaves Tracker')
-    .setDescription('Api Docs for leaves tracker')
+    .setTitle('Naraka Tournaments')
+    .setDescription('API Documentation for Naraka Tournaments')
     .setVersion('1.0')
     .build();
 
